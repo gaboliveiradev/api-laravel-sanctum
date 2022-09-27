@@ -77,6 +77,6 @@ class ProductController extends Controller
     // -> Deleta um registro no banco de dados
     public function destroy($id)
     {
-        //
+        return ProductModel::destroy($id);
     }
 }
