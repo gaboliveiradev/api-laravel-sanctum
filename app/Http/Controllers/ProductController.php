@@ -15,7 +15,7 @@ class ProductController extends Controller
     // -> Lista todos os nossos registros
     public function index()
     {
-        return ProductModel::All();
+        return ProductModel::all();
     }
 
     /**
@@ -27,7 +27,14 @@ class ProductController extends Controller
     // -> Insere um registro no banco de dados
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'inventory' => 'required',
+            'cost' => 'required',
+            'sale' => 'required'
+        ]);
+
+        return ProductModel::Create($request->all());
     }
 
     /**
