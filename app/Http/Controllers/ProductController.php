@@ -34,7 +34,7 @@ class ProductController extends Controller
             'sale' => 'required'
         ]);
 
-        return ProductModel::Create($request->all());
+        return ProductModel::create($request->all());
     }
 
     /**
@@ -46,7 +46,10 @@ class ProductController extends Controller
     // -> Lista um registro específico
     public function show($id)
     {
-        //
+        // Find = Buscar
+        // FindOrFail = Vai buscar por algo e caso não encontre irá falhar e exibir que a rota não existe, muito
+        // usado para previnir futuros ataques ao SGBD.
+        return ProductModel::findOrFail($id);
     }
 
     /**
@@ -59,7 +62,10 @@ class ProductController extends Controller
     // -> Atualiza um registro já existente
     public function update(Request $request, $id)
     {
-        //
+        $product = ProductModel::findOrFail($id);
+        $product->update($request->all());
+
+        return $product;
     }
 
     /**
