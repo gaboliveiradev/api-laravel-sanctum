@@ -34,4 +34,33 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
+    /**
+     * Login do usuário
+     */
+    public function login(Request $request) {
+        $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        // Checkando primeiramente o email do usuário
+        $user = UserModel::where('email', $request->email)->first();
+
+        //Valida o usuário e cheka a password
+        if(!$user || !Hash::check($request->password, $user->password)) {
+            return response([
+                'message' => 'Credencias inválidas'
+            ], 401);
+        }
+
+        $token = $user->createToken('firstToken')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
+    }
+
 }
