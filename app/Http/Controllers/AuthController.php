@@ -63,4 +63,16 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
+    /**
+     * Logout do usuário
+     */
+    public function logout() {
+        // Pegando todos os tokens do usuário logado e deletando
+        auth()->user()->tokens()->delete();
+
+        return [
+            'message' => 'Logout efetuado com sucesso e exclusão dos tokens'
+        ];
+    }
+
 }
