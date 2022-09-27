@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
 use App\Models\ProductModel;
 
 /*
@@ -19,6 +20,7 @@ use App\Models\ProductModel;
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/products/search/{name}', [ProductController::class, 'search']);
+Route::post('/register', [AuthController::class, 'register']);
 
 // Criando um grupo de rotas e protegendo-as || Só acessa a rota se tiver autenticado
 Route::group(['middleware' => ['auth:sanctum']], function() {
